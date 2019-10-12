@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import TextareaAutosize from 'react-autosize-textarea';
+import { RRule } from 'rrule';
+import moment from 'moment';
 
 import ReactRRuleGenerator, { translations } from '../lib';
 import './index.css';
@@ -8,7 +10,12 @@ import githubLogo from './github_logo.png';
 
 class App extends Component {
   state = {
-    rrule: 'DTSTART:20190301T230000Z\nFREQ=YEARLY;BYMONTH=1;BYMONTHDAY=1',
+    rrule: (new RRule({
+      dtstart: moment().startOf('day').toDate(),
+      freq: RRule.MONTHLY,
+      interval: 1,
+      bymonthday: 1
+    })).toString(),
     isCopied: false,
     language: 'en',
   };
@@ -31,6 +38,7 @@ class App extends Component {
 
   render() {
     const { rrule, isCopied } = this.state;
+    const rule = RRule.fromString(rrule)
 
     return (
       <div>
@@ -70,6 +78,17 @@ class App extends Component {
             }}
             translations={this.getTranslation()}
           />
+        </div>
+
+        <hr className="mt-5 mb-5" />
+
+        <div className="container">
+          <h5><strong>Sample occurances</strong></h5>
+          <div className="px-3 pt-3 border rounded">
+            <ul>
+              { rule.all((_, i) => i < 8).map((date, i) => <li key={i}>{date.toISOString()}</li>) }
+            </ul>
+          </div>
         </div>
 
         <hr className="mt-5 mb-5" />

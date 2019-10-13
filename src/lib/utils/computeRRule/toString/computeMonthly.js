@@ -10,7 +10,7 @@ const computeMonthly = ({
   onThe,
 }) => ({
   freq: RRule.MONTHLY,
-  interval,
+  interval: interval > 0 ? interval : undefined,
   ...(mode === 'on' ? computeMonthlyOn(on) : computeMonthlyOnThe(onThe)),
 });
 

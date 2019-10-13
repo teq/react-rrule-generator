@@ -21,7 +21,9 @@ const RepeatDaily = ({
         name="repeat.daily.interval"
         aria-label="Repeat daily interval"
         className="form-control"
-        value={interval}
+        type='number'
+        min='1'
+        value={interval || ''}
         onChange={numericalFieldHandler(handleChange)}
       />
     </div>
@@ -34,7 +36,7 @@ const RepeatDaily = ({
 RepeatDaily.propTypes = {
   id: PropTypes.string.isRequired,
   daily: PropTypes.shape({
-    interval: PropTypes.number.isRequired,
+    interval: PropTypes.number,
   }).isRequired,
   handleChange: PropTypes.func.isRequired,
   translations: PropTypes.oneOfType([PropTypes.object, PropTypes.func]).isRequired,

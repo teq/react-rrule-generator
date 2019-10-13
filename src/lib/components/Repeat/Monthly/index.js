@@ -32,7 +32,9 @@ const RepeatMonthly = ({
             name="repeat.monthly.interval"
             aria-label="Repeat monthly interval"
             className="form-control"
-            value={interval}
+            type='number'
+            min='1'
+            value={interval || ''}
             onChange={numericalFieldHandler(handleChange)}
           />
         </div>
@@ -70,7 +72,7 @@ RepeatMonthly.propTypes = {
   id: PropTypes.string.isRequired,
   monthly: PropTypes.shape({
     mode: PropTypes.oneOf(['on', 'on the']).isRequired,
-    interval: PropTypes.number.isRequired,
+    interval: PropTypes.number,
     on: PropTypes.object.isRequired,
     onThe: PropTypes.object.isRequired,
     options: PropTypes.shape({

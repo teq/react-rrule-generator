@@ -3,7 +3,7 @@ import { values } from 'lodash';
 
 const computeWeekly = ({ interval, days }) => ({
   freq: RRule.WEEKLY,
-  interval,
+  interval: interval > 0 ? interval : undefined,
   byweekday: values(days).reduce(
     (activeDays, isDayActive, dayIndex) =>
       (isDayActive ? [...activeDays, dayIndex] : activeDays),

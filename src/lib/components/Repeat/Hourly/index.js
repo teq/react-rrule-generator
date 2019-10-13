@@ -21,7 +21,9 @@ const RepeatHourly = ({
         name="repeat.hourly.interval"
         aria-label="Repeat hourly interval"
         className="form-control"
-        value={interval}
+        type='number'
+        min='1'
+        value={interval || ''}
         onChange={numericalFieldHandler(handleChange)}
       />
     </div>
@@ -33,7 +35,7 @@ const RepeatHourly = ({
 RepeatHourly.propTypes = {
   id: PropTypes.string.isRequired,
   hourly: PropTypes.shape({
-    interval: PropTypes.number.isRequired,
+    interval: PropTypes.number,
   }).isRequired,
   handleChange: PropTypes.func.isRequired,
   translations: PropTypes.oneOfType([PropTypes.object, PropTypes.func]).isRequired,

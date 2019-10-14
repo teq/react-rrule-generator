@@ -50,7 +50,7 @@ const StartOnDate = ({
               {
                 id: `${id}-datetime`,
                 name: 'start.onDate.date',
-                readOnly: true,
+                onChange: () => {}
               }
             }
             locale={translateLabel(translations, 'locale')}

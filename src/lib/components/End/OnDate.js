@@ -51,7 +51,7 @@ const EndOnDate = ({
               {
                 id: `${id}-datetime`,
                 name: 'end.onDate.date',
-                readOnly: true,
+                onChange: () => {}
               }
             }
             locale={translateLabel(translations, 'locale')}

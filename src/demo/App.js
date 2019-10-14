@@ -11,7 +11,8 @@ import githubLogo from './github_logo.png';
 class App extends Component {
   state = {
     rrule: (new RRule({
-      dtstart: moment().startOf('day').toDate(),
+      dtstart: moment.utc(moment().startOf('day').format('YYYY-MM-DD')).toDate(),
+      tzid: 'local',
       freq: RRule.MONTHLY,
       interval: 1,
       bymonthday: 1
@@ -38,7 +39,11 @@ class App extends Component {
 
   render() {
     const { rrule, isCopied } = this.state;
-    const rule = RRule.fromString(rrule)
+    const occurrences = RRule.fromString(rrule).all((_, i) => i < 8).map((date) => {
+      // Interpret UTC time as a local time
+      // Details: https://github.com/jakubroztocil/rrule#important-use-utc-dates
+      return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+    });
 
     return (
       <div>
@@ -83,10 +88,10 @@ class App extends Component {
         <hr className="mt-5 mb-5" />
 
         <div className="container">
-          <h5><strong>Sample occurances</strong></h5>
+          <h5><strong>Sample occurrences</strong></h5>
           <div className="px-3 pt-3 border rounded">
             <ul>
-              { rule.all((_, i) => i < 8).map((date, i) => <li key={i}>{date.toISOString()}</li>) }
+              { occurrences.map((date, i) => <li key={i}>{moment(date).format()}</li>) }
             </ul>
           </div>
         </div>

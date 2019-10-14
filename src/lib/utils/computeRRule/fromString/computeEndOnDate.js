@@ -1,9 +1,9 @@
-const computeEndOnDate = (data, rruleObj) => {
-  if (!rruleObj.until) {
+const computeEndOnDate = (data, { until }) => {
+  if (!until) {
     return data.end.onDate.date;
   }
 
-  return rruleObj.until;
+  return new Date(until.getUTCFullYear(), until.getUTCMonth(), until.getUTCDate());
 };
 
 export default computeEndOnDate;

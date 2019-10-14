@@ -1,8 +1,8 @@
-const computeStartOnDate = (data, rruleObj) => {
-  if (!rruleObj.dtstart) {
+const computeStartOnDate = (data, { dtstart }) => {
+  if (!dtstart) {
     return data.start.onDate.date;
   }
 
-  return rruleObj.dtstart;
+  return new Date(dtstart.getUTCFullYear(), dtstart.getUTCMonth(), dtstart.getUTCDate());
 };
 export default computeStartOnDate;

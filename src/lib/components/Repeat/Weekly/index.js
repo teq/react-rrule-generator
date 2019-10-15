@@ -43,35 +43,37 @@ const RepeatWeekly = ({
       </div>
 
       <div className="form-group row">
-        <div className="btn-group btn-group-toggle offset-sm-2">
-          {daysArray.map(([dayName, isDayActive]) => (
-            <label
-              htmlFor={`${id}-${dayName}`}
-              key={dayName}
-              className={`btn btn-primary ${isDayActive ? 'active' : ''}`}
-            >
-              <input
-                type="checkbox"
-                id={`${id}-${dayName}`}
-                name={`repeat.weekly.days[${dayName}]`}
-                className="form-control"
-                checked={isDayActive}
-                onChange={(event) => {
-                  const editedEvent = {
-                    ...event,
-                    target: {
-                      ...event.target,
-                      value: !isDayActive,
-                      name: event.target.name,
-                    },
-                  };
+        <div className="offset-sm-2">
+          <div className="btn-group btn-group-toggle">
+            {daysArray.map(([dayName, isDayActive]) => (
+              <label
+                htmlFor={`${id}-${dayName}`}
+                key={dayName}
+                className={`btn btn-primary ${isDayActive ? 'active' : ''}`}
+              >
+                <input
+                  type="checkbox"
+                  id={`${id}-${dayName}`}
+                  name={`repeat.weekly.days[${dayName}]`}
+                  className="form-control"
+                  checked={isDayActive}
+                  onChange={(event) => {
+                    const editedEvent = {
+                      ...event,
+                      target: {
+                        ...event.target,
+                        value: !isDayActive,
+                        name: event.target.name,
+                      },
+                    };
 
-                  handleChange(editedEvent);
-                }}
-              />
-              {translateLabel(translations, `days_short.${dayName.toLowerCase()}`)}
-            </label>))
-          }
+                    handleChange(editedEvent);
+                  }}
+                />
+                {translateLabel(translations, `days_short.${dayName.toLowerCase()}`)}
+              </label>))
+            }
+          </div>
         </div>
       </div>
     </div>
